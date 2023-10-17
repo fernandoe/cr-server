@@ -1,0 +1,7 @@
+.vercel
+__pycache__
+db.sqlite3
+node_modules
+package-lock.json
+package.json
+staticfiles

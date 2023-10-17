@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cr-server"
+version = "0.0.1"
+description = ""
+authors = ["Fernando Espíndola <fer.esp@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = "^4.2.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
