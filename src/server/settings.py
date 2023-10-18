@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'fe_cr',
+    'fe_tickers',
 ]
 
 MIDDLEWARE = [
