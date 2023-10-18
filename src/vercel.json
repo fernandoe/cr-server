@@ -29,7 +29,7 @@
   "crons": [
     {
       "path": "/manage.py import_data",
-      "schedule": "45 1 * * *"
+      "schedule": "57 1 * * *"
     }
   ]
 }
