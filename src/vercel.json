@@ -25,5 +25,11 @@
       "src": "/(.*)",
       "dest": "server/wsgi.py"
     }
+  ],
+  "crons": [
+    {
+      "path": "/manage.py import_data",
+      "schedule": "59 1 * * *"
+    }
   ]
 }
