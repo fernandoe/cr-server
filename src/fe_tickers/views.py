@@ -1,6 +1,7 @@
 import yfinance as yf
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+
 from fe_cr.models import Ticker, TickerData
 
 
