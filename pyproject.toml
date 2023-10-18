@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.9"
 django = "^4.2.6"
 psycopg2-binary = "^2.9.9"
+yfinance = "^0.2.31"
 
 
 [build-system]
