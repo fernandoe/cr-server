@@ -15,11 +15,34 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
-          <h1>Home</h1>
-          <p>Home page</p>
+        <div class="col-md-3">
+          <h1>Papéis</h1>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Habilitado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticker in tickers %}
+                <tr>
+                  <td>{{ ticker.name }}</td>
+                  <td>
+                    {% if ticker.is_enabled %}
+                    <span class="badge rounded-pill text-bg-success">&nbsp;</span>
+                    {% else %}
+                    <span class="badge rounded-pill text-bg-danger">&nbsp;</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
         </div>
-        <div class="col-md-8"></div>
+        <div class="col-md-9"></div>
       </div>
     </div>
   </body>
