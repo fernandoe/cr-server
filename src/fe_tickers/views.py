@@ -5,6 +5,17 @@ from django.shortcuts import render
 from fe_cr.models import Ticker, TickerData
 
 
+def search(request):
+    query = request.GET.get("q")
+    if query:
+        tickers = Ticker.objects.filter(name__icontains=query)
+    else:
+        tickers = Ticker.objects.all()
+
+    context = {"tickers": tickers}
+    return render(request, "htmx/tickers/list.html", context)
+
+
 def get_data(request):
     tickers = Ticker.objects.filter(is_enabled=True, name="TRAD3")
 
