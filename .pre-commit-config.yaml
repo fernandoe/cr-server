@@ -6,8 +6,10 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
+        exclude: ^src/thirt-party/
       - id: check-yaml
       - id: check-added-large-files
+        exclude: ^src/thirt-party/
   - repo: https://github.com/psf/black
     rev: 23.3.0
     hooks:
