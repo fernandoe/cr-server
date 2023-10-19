@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import get_data
+from .views import get_data, search
 
 urlpatterns = [
+    path("search/", search, name="search"),
     path("download/", get_data, name="download"),
 ]

@@ -1,0 +1,13 @@
+{% for ticker in tickers %}
+<tr>
+  <td>{{ ticker.name }}</td>
+  <td>{{ ticker.tickerdata_set.count }}</td>
+  <td>
+    {% if ticker.is_enabled %}
+    <span class="badge rounded-pill text-bg-success">&nbsp;</span>
+    {% else %}
+    <span class="badge rounded-pill text-bg-danger">&nbsp;</span>
+    {% endif %}
+  </td>
+</tr>
+{% endfor %}
