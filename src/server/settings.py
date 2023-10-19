@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "fe_cr",
+    "fe_frontend",
     "fe_tickers",
 ]
 
