@@ -6,3 +6,6 @@ vercel-dev:
 
 pre-commit-all-files:
 	pre-commit run --all-files
+
+runserver:
+	cd src; python manage.py runserver 0.0.0.0:8000

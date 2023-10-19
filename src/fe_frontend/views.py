@@ -4,7 +4,7 @@ from fe_cr.models import Ticker
 
 
 def index(request):
-    tickers = Ticker.objects.all()
+    tickers = Ticker.objects.all().order_by("name")
     data = {
         "tickers": tickers,
     }
