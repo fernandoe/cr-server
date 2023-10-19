@@ -6,7 +6,7 @@ from fe_cr.models import Ticker, TickerData
 
 
 def get_data(request):
-    tickers = Ticker.objects.filter(is_enabled=True)
+    tickers = Ticker.objects.filter(is_enabled=True, name="TRAD3")
 
     for ticker in tickers:
         print(f"Ticker: {ticker}")

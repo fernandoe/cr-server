@@ -16,7 +16,7 @@ class TickerMA(admin.ModelAdmin):
 
 @admin.register(TickerData)
 class TickerDataMA(admin.ModelAdmin):
-    search_fields = ("ticker", "date", "open", "high", "low", "close", "volume")
+    search_fields = ("ticker__name", "date", "open", "high", "low", "close", "volume")
     list_display = (
         "get_uuid",
         "created_at",
