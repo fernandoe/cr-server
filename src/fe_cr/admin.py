@@ -3,7 +3,7 @@ import os
 
 from django.contrib import admin
 
-from .models import Strategy, Ticker, TickerData
+from .models import Strategy, StrategyExecution, Ticker, TickerData
 
 
 @admin.register(Ticker)
@@ -33,3 +33,22 @@ class TickerDataMA(admin.ModelAdmin):
 class StrategyMA(admin.ModelAdmin):
     search_fields = ("name", "is_enabled")
     list_display = ("get_uuid", "created_at", "updated_at", "name", "is_enabled")
+
+
+@admin.register(StrategyExecution)
+class StrategyExecutionMA(admin.ModelAdmin):
+    list_display = (
+        "get_uuid",
+        "created_at",
+        "updated_at",
+        "user",
+        "strategy",
+        "ticker",
+        "start_date",
+        "end_date",
+        "initial_cash",
+        "final_cash",
+        "total_return",
+        "num_trades",
+        "num_win",
+    )

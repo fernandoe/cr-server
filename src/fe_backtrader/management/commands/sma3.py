@@ -4,10 +4,11 @@ from datetime import datetime
 
 import backtrader as bt
 import pandas as pd
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 
 from fe_backtrader.engine.strategies.sma3 import SMA3
-from fe_cr.models import TickerData
+from fe_cr.models import Strategy, StrategyExecution, Ticker, TickerData
 
 
 class Command(BaseCommand):
@@ -42,7 +43,8 @@ class Command(BaseCommand):
 
         print(f"Starting Portfolio Value: {cerebro.broker.getvalue()}")
         results = cerebro.run()
-        print(f"Final Portfolio Value: {cerebro.broker.getvalue()}")
+        final_cash = cerebro.broker.getvalue()
+        print(f"Final Portfolio Value: {final_cash}")
 
         sqn = results[0].analyzers.sqn.get_analysis()
         ta = results[0].analyzers.ta.get_analysis()
@@ -72,4 +74,25 @@ class Command(BaseCommand):
             ],
         ]
 
-        cerebro.plot()
+        print(f"data: {data}")
+        print(f"win_rate: {win_rate}")
+        print(f"num_trades: {num_trades}")
+        print(f"num_win: {num_win}")
+
+        user = User.objects.get(username="fernandoe")
+        strategy = Strategy.objects.get(pk="bce729cf-a2b0-422e-a023-32ea87781c82")
+        ticker = Ticker.objects.get(name="PETR4")
+        StrategyExecution.objects.create(
+            user=user,
+            strategy=strategy,
+            ticker=ticker,
+            start_date=datetime(2023, 1, 1),
+            end_date=datetime(2023, 1, 1),
+            initial_cash=100.0,
+            final_cash=final_cash,
+            total_return=0,
+            num_trades=num_trades,
+            num_win=num_win,
+        )
+
+        cerebro.plot(style="candlestick")
