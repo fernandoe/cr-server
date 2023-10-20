@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "fe_backtrader",
     "fe_cr",
     "fe_frontend",
     "fe_tickers",
