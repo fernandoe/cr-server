@@ -3,9 +3,7 @@ import os
 
 from django.contrib import admin
 
-from .models import Ticker, TickerData
-
-# Register your models here.
+from .models import Strategy, Ticker, TickerData
 
 
 @admin.register(Ticker)
@@ -29,3 +27,9 @@ class TickerDataMA(admin.ModelAdmin):
         "close",
         "volume",
     )
+
+
+@admin.register(Strategy)
+class StrategyMA(admin.ModelAdmin):
+    search_fields = ("name", "is_enabled")
+    list_display = ("get_uuid", "created_at", "updated_at", "name", "is_enabled")

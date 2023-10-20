@@ -22,3 +22,11 @@ class TickerData(UUIDModel):
 
     class Meta:
         unique_together = ("ticker", "date")
+
+
+class Strategy(UUIDModel):
+    name = models.CharField(max_length=100)
+    is_enabled = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
