@@ -51,4 +51,6 @@ class StrategyExecutionMA(admin.ModelAdmin):
         "total_return",
         "num_trades",
         "num_win",
+        "scheme_image_tag",
     )
+    readonly_fields = ("scheme_image_tag",)

@@ -1,3 +1,4 @@
+import base64
 import math
 import os
 from datetime import datetime
@@ -94,7 +95,7 @@ def process_strategy(ticker):
 
     user = User.objects.get(username="fernandoe")
     strategy = Strategy.objects.get(pk="bce729cf-a2b0-422e-a023-32ea87781c82")
-    StrategyExecution.objects.create(
+    se = StrategyExecution.objects.create(
         user=user,
         strategy=strategy,
         ticker=ticker,
@@ -112,3 +113,8 @@ def process_strategy(ticker):
     # figure.savefig(f"{ticker.name}.png")
 
     save_cerebro_image(cerebro, style="candlebars", file_path=f"{ticker.name}.png")
+    se.chart_data = base64.b64encode(open(f"{ticker.name}.png", "rb").read())
+    print("-----")
+    print(f"se.chart_data: {se.chart_data}")
+    print("-----")
+    se.save()
