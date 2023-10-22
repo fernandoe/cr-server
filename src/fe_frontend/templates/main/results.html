@@ -1,0 +1,54 @@
+{% extends "base/base.html" %}
+
+{% block title %}Resultados{% endblock title %}
+
+{% block page_title %}Página com Resultados{% endblock page_title %}
+
+{% block content %}
+
+<form hx-get="{% url 'x_results_list' %}" hx-trigger="submit, load" hx-target="#results-list">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" placeholder="Código ou nome" aria-label="">
+        <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Estratégia</th>
+            <th>Papel</th>
+            <th>Data Inicial</th>
+            <th>Data Final</th>
+            <th>Caixa Inicial</th>
+            <th>Caixa Final</th>
+            <th>Retorno</th>
+            <th>Núm. Trades</th>
+            <th>Acertos</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="results-list">
+    </tbody>
+</table>
+
+<div class="modal" tabindex="-1" id="graphicModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="graphic"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

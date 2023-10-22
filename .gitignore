@@ -1,4 +1,6 @@
+.DS_Store
 .env
+.venv
 .vercel
 __pycache__
 db.sqlite3

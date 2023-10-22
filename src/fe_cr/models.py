@@ -1,6 +1,10 @@
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from django.db import models
 
 from commons.base_models import UUIDModel
+
+User = get_user_model()
 
 
 class Ticker(UUIDModel):
@@ -22,3 +26,46 @@ class TickerData(UUIDModel):
 
     class Meta:
         unique_together = ("ticker", "date")
+
+
+class Strategy(UUIDModel):
+    name = models.CharField(max_length=100)
+    is_enabled = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class StrategyExecution(UUIDModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
+    ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    initial_cash = models.DecimalField(max_digits=10, decimal_places=2)
+    final_cash = models.DecimalField(max_digits=10, decimal_places=2)
+    total_return = models.DecimalField(max_digits=10, decimal_places=2)
+    num_trades = models.IntegerField()
+    num_win = models.IntegerField()
+    chart_data = models.BinaryField(blank=True, null=True)
+    # win_pnl = models.DecimalField(max_digits=10, decimal_places=2)
+    # sqn_score = models.DecimalField(max_digits=10, decimal_places=2)
+    # mdd = models.DecimalField(max_digits=10, decimal_places=2)
+    # mdd_period = models.IntegerField()
+    # total_compound_return = models.DecimalField(max_digits=10, decimal_places=2)
+    # created_at = models.DateTimeField(auto_now_add=True)
+
+    def scheme_image_tag(self):
+        from base64 import b64encode
+
+        from django.utils.safestring import mark_safe
+
+        return mark_safe(
+            '<img src="data: image/png; base64, {}" width="200" height="100">'.format(
+                self.chart_data.tobytes().decode("utf8")
+                # self.chart_data.decode('utf8')
+            )
+        )
+
+    scheme_image_tag.short_description = "Image"
+    scheme_image_tag.allow_tags = True

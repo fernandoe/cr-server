@@ -1,0 +1,34 @@
+{% extends "base/base.html" %}
+
+{% block title %}Papéis{% endblock title %}
+
+{% block page_title %}Papéis{% endblock page_title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3">
+        <form hx-get="{% url 'search' %}" hx-trigger="submit, load" hx-target="#tickers-list">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="q" placeholder="Código ou nome" aria-label="">
+                <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Barras</th>
+                    <th scope="col">Habilitado</th>
+                </tr>
+            </thead>
+            <tbody id="tickers-list">
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-md-9"></div>
+</div>
+
+{% endblock content %}
