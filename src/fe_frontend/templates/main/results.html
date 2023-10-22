@@ -6,6 +6,13 @@
 
 {% block content %}
 
+<form hx-get="{% url 'x_results_list' %}" hx-trigger="submit, load" hx-target="#results-list">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="q" placeholder="Código ou nome" aria-label="">
+        <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -21,7 +28,6 @@
         </tr>
     </thead>
     <tbody id="results-list">
-        {% include "main/results/results-list.html" %}
     </tbody>
 </table>
 {% endblock content %}

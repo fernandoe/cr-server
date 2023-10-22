@@ -11,13 +11,25 @@ def index(request):
     return render(request, "index.html", data)
 
 
+def tickers(request):
+    tickers = Ticker.objects.all().order_by("name")
+    data = {
+        "active_tickers": "active",
+        "tickers": tickers,
+    }
+    return render(request, "main/tickers.html", data)
+
+
 def strategies(request):
-    return render(request, "main/strategies.html")
+    data = {
+        "active_strategies": "active",
+        "tickers": tickers,
+    }
+    return render(request, "main/strategies.html", data)
 
 
 def results(request):
-    results = StrategyExecution.objects.all()
     data = {
-        "results": results,
+        "active_results": "active",
     }
     return render(request, "main/results.html", data)

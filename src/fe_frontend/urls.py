@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import index, results, strategies
+from .views import index, results, strategies, tickers
+from .views_x import x_results_list
 
 urlpatterns = [
     path("", index, name="index"),
     path("strategies/", strategies, name="strategies"),
+    path("tickers/", tickers, name="tickers"),
     path("results/", results, name="results"),
+    path("x/results/list/", x_results_list, name="x_results_list"),
 ]
