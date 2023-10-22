@@ -1,0 +1,13 @@
+{% for item in results %}
+<tr>
+  <td>{{ item.strategy.name }}</td>
+  <td>{{ item.ticker.name }}</td>
+  <td>{{ item.start_date }}</td>
+  <td>{{ item.end_date }}</td>
+  <td>{{ item.initial_cash }}</td>
+  <td>{{ item.final_cash }}</td>
+  <td>{{ item.total_return }}</td>
+  <td>{{ item.num_trades }}</td>
+  <td>{{ item.num_win }}</td>
+</tr>
+{% endfor %}

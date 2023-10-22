@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    <title>Home</title>
+        <title>{% block title %}{% endblock title %}</title>
 
     <meta name="description" content="Serviço responsável por achar oportunidades dentro do mercado brasileiro de ações." />
     <meta name="keywords" content="ibov,ibovespa,ações"/>
@@ -19,6 +19,13 @@
     <script type="text/javascript" src="{% static 'htmx/1.9.6/htmx.min.js' %}"></script>
   </head>
   <body>
+
+    {% include "base/navbar.html" %}
+
+    {% block content %}
+            <h1>Título da Página</h1>
+    {% endblock content %}
+{% comment %}
     <div class="container">
       <div class="row">
         <div class="col-md-3">
@@ -49,3 +56,4 @@
     </div>
   </body>
 </html>
+{% endcomment %}

@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+
+{% block title %}Resultados{% endblock title %}
+
+{% block content %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Estratégia</th>
+            <th>Papel</th>
+            <th>Data Inicial</th>
+            <th>Data Final</th>
+            <th>Caixa Inicial</th>
+            <th>Caixa Final</th>
+            <th>Retorno</th>
+            <th>Núm. Trades</th>
+            <th>Acertos</th>
+        </tr>
+    </thead>
+    <tbody id="results-list">
+        {% include "main/results/results-list.html" %}
+    </tbody>
+</table>
+{% endblock content %}

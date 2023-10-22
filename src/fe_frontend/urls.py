@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import index
+from .views import index, results, strategies
 
 urlpatterns = [
     path("", index, name="index"),
+    path("strategies/", strategies, name="strategies"),
+    path("results/", results, name="results"),
 ]
