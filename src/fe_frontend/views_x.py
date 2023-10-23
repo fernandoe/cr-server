@@ -13,5 +13,5 @@ def x_results_list(request):
 
 def x_results_graphic(request, uuid):
     item = StrategyExecution.objects.get(uuid=uuid)
-    data = {"image": item.chart_data.tobytes().decode("utf-8")}
+    data = {"image": item.chart_data.decode("utf-8")}
     return render(request, "htmx/results/graphic.html", data)

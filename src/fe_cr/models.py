@@ -62,8 +62,8 @@ class StrategyExecution(UUIDModel):
 
         return mark_safe(
             '<img src="data: image/png; base64, {}" width="200" height="100">'.format(
-                self.chart_data.tobytes().decode("utf8")
-                # self.chart_data.decode('utf8')
+                # self.chart_data.tobytes().decode("utf8")
+                self.chart_data.decode("utf8")
             )
         )
 

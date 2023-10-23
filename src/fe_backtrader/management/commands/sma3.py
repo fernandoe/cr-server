@@ -94,7 +94,7 @@ def process_strategy(ticker):
     print(f"num_win: {num_win}")
 
     user = User.objects.get(username="fernandoe")
-    strategy = Strategy.objects.get(pk="bce729cf-a2b0-422e-a023-32ea87781c82")
+    strategy = Strategy.objects.get(pk="d6d93e7c-f5bb-4a74-9d30-7b7f64dcd577")
     se = StrategyExecution.objects.create(
         user=user,
         strategy=strategy,
@@ -113,7 +113,8 @@ def process_strategy(ticker):
     # figure.savefig(f"{ticker.name}.png")
 
     save_cerebro_image(cerebro, style="candlebars", file_path=f"{ticker.name}.png")
-    se.chart_data = base64.b64encode(open(f"{ticker.name}.png", "rb").read())
+    # se.chart_data = base64.b64encode(open(f"{ticker.name}.png", "rb").read())
+    se.chart_data = open(f"{ticker.name}.png", "rb").read()
     print("-----")
     print(f"se.chart_data: {se.chart_data}")
     print("-----")
