@@ -24,6 +24,28 @@ class TickerData(UUIDModel):
     close = models.DecimalField(max_digits=10, decimal_places=2)
     volume = models.BigIntegerField()
 
+    def update_if_changed(self, ticker_open, high, low, close, volume):
+        # print(f"Comparing {self.ticker.name} - {self.date}")
+        # print(f"Comparing {self.open} - {ticker_open}")
+        # print(f"Comparing {self.high} - {high}")
+        # print(f"Comparing {self.low} - {low}")
+        # print(f"Comparing {self.close} - {close}")
+        # print(f"Comparing {self.volume} - {volume}")
+        if (
+            float(self.open) != float(ticker_open)
+            or float(self.high) != float(high)
+            or float(self.low) != float(low)
+            or float(self.close) != float(close)
+            or int(self.volume) != int(volume)
+        ):
+            print(f"Updating {self.ticker.name} - {self.date}")
+            self.open = ticker_open
+            self.high = high
+            self.low = low
+            self.close = close
+            self.volume = volume
+            self.save()
+
     class Meta:
         unique_together = ("ticker", "date")
 
