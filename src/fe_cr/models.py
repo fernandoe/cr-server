@@ -70,12 +70,6 @@ class StrategyExecution(UUIDModel):
     num_trades = models.IntegerField()
     num_win = models.IntegerField()
     chart_data = models.BinaryField(blank=True, null=True)
-    # win_pnl = models.DecimalField(max_digits=10, decimal_places=2)
-    # sqn_score = models.DecimalField(max_digits=10, decimal_places=2)
-    # mdd = models.DecimalField(max_digits=10, decimal_places=2)
-    # mdd_period = models.IntegerField()
-    # total_compound_return = models.DecimalField(max_digits=10, decimal_places=2)
-    # created_at = models.DateTimeField(auto_now_add=True)
 
     def scheme_image_tag(self):
         from base64 import b64encode
