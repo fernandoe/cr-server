@@ -1,10 +1,27 @@
 {% extends "base/base.html" %}
+{% load render_table from django_tables2 %}
+{% load i18n %}
+{% load django_tables2 %}
 
 {% block title %}Resultados{% endblock title %}
 
-{% block page_title %}Página com Resultados{% endblock page_title %}
+{% block page_title %}Resultados{% endblock page_title %}
 
 {% block content %}
+
+{# Search form #}
+
+{# Progress indicator #}
+<div class="progress">
+    <div class="indeterminate"></div>
+</div>
+
+{# The actual table #}
+{% render_table table %}
+
+
+
+{% comment %}
 
 <form hx-get="{% url 'x_results_list' %}" hx-trigger="submit, load" hx-target="#results-list">
     <div class="input-group mb-3">
@@ -12,6 +29,30 @@
         <button class="btn btn-outline-secondary" type="submit">Pesquisar</button>
     </div>
 </form>
+
+<!-- <table {% render_attrs table.attrs class="table multi-col-header" %}> -->
+<!--     <thead {{ table.attrs.thead.as_html }}> -->
+<!--         <tr> -->
+<!--             {% for column in table.columns %} -->
+<!--             <th {{ column.attrs.th.as_html }} x-data="{ col_name: '{{ column.order_by_alias }}', -->
+<!--                                   toggle(event) { -->
+<!--                                     this.col_name = this.col_name.startsWith('-') ? this.col_name.substring(1) : ('-' + this.col_name); -->
+<!--                                     sort_by = this.col_name;}}" @click="toggle()" -->
+<!--                 :class="sort_by !== '' ? (sort_by === col_name ? (sort_by.startsWith('-') ? 'desc' : 'asc') : '') : ''" -->
+<!--                 style="cursor: pointer;"> -->
+<!--                 {{ column.header }} -->
+<!--             </th> -->
+<!--             {% endfor %} -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--         </tr> -->
+<!--     </thead> -->
+<!-- </table> -->
+
+{% endcomment %}
+
+
+{% comment %}
 
 <table class="table table-striped">
     <thead>
@@ -51,4 +92,5 @@
     </div>
 </div>
 
+{% endcomment %}
 {% endblock content %}
