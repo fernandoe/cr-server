@@ -17,7 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import StrategyExecutionTableView, index, results, strategies, tickers
+from .views import (
+    StrategyExecutionTableView,
+    graphics,
+    graphics_image,
+    graphics_tickers_search,
+    index,
+    results,
+    strategies,
+    tickers,
+)
 from .views_x import x_results_graphic, x_results_list
 
 urlpatterns = [
@@ -26,6 +35,9 @@ urlpatterns = [
     path("tickers/", tickers, name="tickers"),
     # path("results/", results, name="results"),
     path("results/", StrategyExecutionTableView.as_view(), name="results"),
+    path("graphics/", graphics, name="graphics"),
+    path("graphics/tickers/", graphics_tickers_search, name="graphics-tickers"),
+    path("graphics/<str:ticker_name>/", graphics_image, name="graphics-image"),
     path("x/results/list/", x_results_list, name="x_results_list"),
     path("x/results/graphic/<uuid:uuid>", x_results_graphic, name="x_results_graphic"),
 ]

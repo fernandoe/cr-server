@@ -1,0 +1,5 @@
+{% for ticker in tickers %}
+<tr hx-get="{% url 'graphics-image' ticker.name %}" hx-target="#graphic">
+  <td>{{ ticker.name }}</td>
+</tr>
+{% endfor %}
