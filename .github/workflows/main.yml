@@ -85,6 +85,7 @@ jobs:
     #       source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
     #       python manage.py migrate --settings server.settings.dreamhost
 
+
     - name: 🔧 Create .env file
       uses: appleboy/ssh-action@master
       env:
