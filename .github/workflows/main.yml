@@ -67,24 +67,23 @@ jobs:
           source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
           python manage.py collectstatic --settings server.settings.dreamhost
 
-    # - name: 🔧 Migrate Database
-    #   uses: appleboy/ssh-action@master
-    #   env:
-    #     DB_DATABASE: ${{ secrets.DB_DATABASE }}
-    #     DB_HOST: ${{ secrets.DB_HOST }}
-    #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-    #     DB_USER: ${{ secrets.DB_USER }}
-    #   with:
-    #     host: klamathfalls.dreamhost.com
-    #     username: dh_gr97s7
-    #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-    #     port: 22
-    #     envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
-    #     script: |
-    #       cd /home/dh_gr97s7/cr.controlederisco.com.br
-    #       source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
-    #       python manage.py migrate --settings server.settings.dreamhost
-
+    - name: 🔧 Migrate Database
+      uses: appleboy/ssh-action@master
+      env:
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_USER: ${{ secrets.DB_USER }}
+      with:
+        host: klamathfalls.dreamhost.com
+        username: dh_gr97s7
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
+        script: |
+          cd /home/dh_gr97s7/cr.controlederisco.com.br
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
+          python manage.py migrate --settings server.settings.dreamhost
 
     - name: 🔧 Create .env file
       uses: appleboy/ssh-action@master
@@ -93,20 +92,17 @@ jobs:
         DB_HOST: ${{ secrets.DB_HOST }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         DB_USER: ${{ secrets.DB_USER }}
-        DB_ESPINDOLA: FERNANDO
       with:
         host: klamathfalls.dreamhost.com
         username: dh_gr97s7
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
-        envs: DB_DATABASE, DB_HOST, DB_PASSWORD, DB_USER, DB_ESPINDOLA
+        envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
           rm -rf .env
           echo DB_DATABASE="${DB_DATABASE}" >> .env
-          echo DB_HOST="$DB_HOST" >> .env
-          echo DB_PASSWORD="$DB_PASSWORD" >> .env
+          echo DB_HOST="${DB_HOST}" >> .env
+          echo DB_PASSWORD="${DB_PASSWORD}" >> .env
           echo DB_USER="${DB_USER}" >> .env
-          echo DB_fernandoe="${DB_ESPINDOLA}" >> .env
-          echo DB_espindola="$DB_ESPINDOLA" >> .env
