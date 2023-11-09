@@ -44,7 +44,7 @@ jobs:
         port: 22
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
-          source /home/dh_gr97s7/venv-app-3.6.9/bin/activate
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
           pip3 install -r /home/dh_gr97s7/cr.controlederisco.com.br/requirements.txt
           mkdir /home/dh_gr97s7/cr.controlederisco.com.br/tmp/
           touch /home/dh_gr97s7/cr.controlederisco.com.br/tmp/restart.txt
@@ -58,7 +58,7 @@ jobs:
         port: 22
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
-          source /home/dh_gr97s7/venv-app-3.6.9/bin/activate
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
           python manage.py collectstatic --settings server.settings.dreamhost
 
     - name: 🔧 Migrate Database
@@ -70,5 +70,5 @@ jobs:
         port: 22
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
-          source /home/dh_gr97s7/venv-app-3.6.9/bin/activate
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
           python manage.py migrate --settings server.settings.dreamhost
