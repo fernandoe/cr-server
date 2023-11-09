@@ -9,3 +9,6 @@ pre-commit-all-files:
 
 runserver:
 	cd src; python manage.py runserver 0.0.0.0:8000
+
+dreamhost-sync:
+	rsync -av --filter '- __pycache__' ./src/ cr:~/cr.controlederisco.com.br

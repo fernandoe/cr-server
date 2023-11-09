@@ -1,0 +1,106 @@
+name: 🚀 Deploy to Dreamhost on Push
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events and only for the master branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains two jobs
+  rsync-deploy:
+    name: 🏗️ Rsync with Dreamhost
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: 📝 Get Latest Code
+      uses: actions/checkout@v2
+
+    - name: 📂 Rsync files
+      uses: burnett01/rsync-deployments@5.1
+      with:
+        switches: -avzr --delete --exclude='venv/' --exclude='.git/' --exclude='.github/'
+        path: /src/
+        remote_path: /home/dh_gr97s7/cr.controlederisco.com.br
+        remote_host: klamathfalls.dreamhost.com
+        remote_user: dh_gr97s7
+        remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    # Install any new dependencies from requirements.txt
+    - name: 🔧 Install Python Dependencies
+      uses: appleboy/ssh-action@master
+      with:
+        host: klamathfalls.dreamhost.com
+        username: dh_gr97s7
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /home/dh_gr97s7/cr.controlederisco.com.br
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
+          pip3 install -r /home/dh_gr97s7/cr.controlederisco.com.br/requirements.txt
+          mkdir /home/dh_gr97s7/cr.controlederisco.com.br/tmp/
+          touch /home/dh_gr97s7/cr.controlederisco.com.br/tmp/restart.txt
+
+    - name: 🔧 Collect static files
+      uses: appleboy/ssh-action@master
+      env:
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_USER: ${{ secrets.DB_USER }}
+      with:
+        host: klamathfalls.dreamhost.com
+        username: dh_gr97s7
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
+        script: |
+          cd /home/dh_gr97s7/cr.controlederisco.com.br
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
+          python manage.py collectstatic --settings server.settings.dreamhost
+
+    - name: 🔧 Migrate Database
+      uses: appleboy/ssh-action@master
+      env:
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_USER: ${{ secrets.DB_USER }}
+      with:
+        host: klamathfalls.dreamhost.com
+        username: dh_gr97s7
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
+        script: |
+          cd /home/dh_gr97s7/cr.controlederisco.com.br
+          source /home/dh_gr97s7/venv-app-3.11.6/bin/activate
+          python manage.py migrate --settings server.settings.dreamhost
+
+    - name: 🔧 Create .env file
+      uses: appleboy/ssh-action@master
+      env:
+        DB_DATABASE: ${{ secrets.DB_DATABASE }}
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DB_USER: ${{ secrets.DB_USER }}
+      with:
+        host: klamathfalls.dreamhost.com
+        username: dh_gr97s7
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
+        script: |
+          cd /home/dh_gr97s7/cr.controlederisco.com.br
+          rm -rf .env
+          echo DB_DATABASE="${DB_DATABASE}" >> .env
+          echo DB_HOST="${DB_HOST}" >> .env
+          echo DB_PASSWORD="${DB_PASSWORD}" >> .env
+          echo DB_USER="${DB_USER}" >> .env
