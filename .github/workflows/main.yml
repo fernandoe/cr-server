@@ -4,8 +4,7 @@ name: 🚀 Deploy to Dreamhost on Push
 on:
   # Triggers the workflow on push events and only for the master branch
   push:
-    #branches: [ master ]
-    branches: [ dreamhost ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -98,7 +97,6 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         envs: DB_DATABASE,DB_HOST,DB_PASSWORD,DB_USER
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
           rm -rf .env
