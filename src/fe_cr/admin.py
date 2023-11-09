@@ -1,15 +1,19 @@
-import decimal
-import os
-
 from django.contrib import admin
 
 from .models import Strategy, StrategyExecution, Ticker, TickerData
+from .services import update_tickers
+
+
+@admin.action(description="Update selected tickers")
+def action_update_tickers(modeladmin, request, queryset):
+    update_tickers(queryset)
 
 
 @admin.register(Ticker)
 class TickerMA(admin.ModelAdmin):
     search_fields = ("name", "is_enabled")
     list_display = ("get_uuid", "created_at", "updated_at", "name", "is_enabled")
+    actions = [action_update_tickers]
 
 
 @admin.register(TickerData)
