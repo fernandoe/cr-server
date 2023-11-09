@@ -51,7 +51,7 @@ jobs:
 
     - name: 🔧 Collect static files
       uses: appleboy/ssh-action@master
-      env:
+      envs:
         DB_DATABASE: ${{ secrets.DB_DATABASE }}
         DB_HOST: ${{ secrets.DB_HOST }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -69,7 +69,7 @@ jobs:
 
     # - name: 🔧 Migrate Database
     #   uses: appleboy/ssh-action@master
-    #   env:
+    #   envs:
     #     DB_DATABASE: ${{ secrets.DB_DATABASE }}
     #     DB_HOST: ${{ secrets.DB_HOST }}
     #     DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -87,7 +87,7 @@ jobs:
 
     - name: 🔧 Create .env file
       uses: appleboy/ssh-action@master
-      env:
+      envs:
         DB_DATABASE: ${{ secrets.DB_DATABASE }}
         DB_HOST: ${{ secrets.DB_HOST }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
