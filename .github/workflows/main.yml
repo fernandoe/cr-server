@@ -99,6 +99,7 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         envs: DB_DATABASE, DB_HOST, DB_PASSWORD, DB_USER, DB_ESPINDOLA
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         script: |
           cd /home/dh_gr97s7/cr.controlederisco.com.br
           rm -rf .env
